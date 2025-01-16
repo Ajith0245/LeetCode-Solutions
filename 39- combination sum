@@ -1,0 +1,31 @@
+/*Start with an empty list and call the recursive function helper with the initial target and index.
+In the helper function, if the target becomes 0, add the current combination (sum) to the result list.
+If the target becomes negative, return to stop further exploration.
+Iterate over the candidates starting from the current index, recursively reduce the target, and backtrack to explore all possible combinations.*/
+
+
+
+
+class Solution {
+     List<List<Integer>>list= new ArrayList<>();
+     List<Integer>sum= new ArrayList<>();
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+       helper( candidates,target,0,sum,list);
+       return list;
+ }
+ public void helper(int []candidates,int target,int startindex,List<Integer>sum,List<List<Integer>>list){
+    if(target==0){
+        list.add(new ArrayList<>(sum));
+        return;
+    }
+    if(target<0){
+        return;
+    }
+    for(int i=startindex;i<candidates.length;i++){
+       sum.add(candidates[i]);
+        helper(candidates,target-candidates[i],i,sum,list);
+        sum.remove(sum.size()-1);
+    }
+
+ }
+}
